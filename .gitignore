@@ -2,3 +2,4 @@ dist
 .cache
 .vscode
 .idea
+node_modules
