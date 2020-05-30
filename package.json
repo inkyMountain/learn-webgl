@@ -1,6 +1,11 @@
 {
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
   "devDependencies": {
     "less": "^3.11.1",
+    "parcel": "^1.12.4",
     "typescript": "^3.9.3"
   }
 }

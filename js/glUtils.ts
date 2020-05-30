@@ -28,6 +28,14 @@ function createProgram(
   gl.deleteProgram(program);
 }
 
+function setupProgram(gl: WebGLRenderingContext, vertexShaderSource: string, fragmentShaderSource: string) {
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  const program = createProgram(gl, vertexShader, fragmentShader);
+  gl.linkProgram(program);
+  return program;
+}
+
 // 将 canvas 的宽高与 CSS 同步。这样可以使用 CSS 来控制 canvas 显示的范围。
 function resize(canvas: HTMLCanvasElement) {
   const rect = canvas.getBoundingClientRect();
@@ -36,4 +44,9 @@ function resize(canvas: HTMLCanvasElement) {
   canvas.height = Math.floor(dpr * rect.height);
 }
 
-export { createShader, createProgram, resize };
+export {
+  createShader,
+  createProgram,
+  resize,
+  setupProgram
+};
