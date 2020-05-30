@@ -56,9 +56,6 @@ function project(m: Matrix3, width: number, height: number): Matrix3 {
   return multiply(m, projection(width, height));
 }
 
-// function translation(tx: number, ty: number): Matrix3 {
-//   return [1, 0, tx, 0, 1, ty, 0, 0, 1];
-// }
 function translation(tx: number, ty: number): Matrix3 {
   return [1, 0, 0, 0, 1, 0, tx, ty, 1];
 }
