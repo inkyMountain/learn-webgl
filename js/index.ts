@@ -38,11 +38,10 @@ gl.useProgram(program);
 // 绑定buffer
 const positionBuffer = gl.createBuffer();
 const positions = [
-  ...[0, 0, 200, 200, 200, 0],
-  ...[600, 300, 800, 200, 800, 300],
+  ...[0, 0, 200, 200, 200, 0]
 ];
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+gl.bufferData(gl.ARRAY_BUFFER, new Uint16Array(positions), gl.STATIC_DRAW);
 const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
 
 // 设置 resolution 变量的值
@@ -84,9 +83,9 @@ const drawScene = (gl: WebGLRenderingContext) => {
     const matrix = Matrix3Set[transform];
     return matrix ? m3.multiply(acc, matrix) : acc;
   }, m3.identity());
-  const Matrix3 = gl.uniformMatrix3fv(Matrix3Location, false, finalMatrix3);
+  gl.uniformMatrix3fv(Matrix3Location, false, finalMatrix3);
   // vertexAttribPointer 将锁定 positions 这个数组，后续将其它的数组绑定到 gl.ARRAY_BUFFER，也不会影响 'a_position' 接收到的值。
-  gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+  gl.vertexAttribPointer(positionAttributeLocation, 2, gl.UNSIGNED_SHORT, false, 0, 0);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 };
 
