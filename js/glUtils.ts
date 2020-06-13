@@ -1,6 +1,20 @@
 /**
  * 这里是 WebGl 一些工具函数，用于生成shader, program，以及 canvas 的像素处理。
  */
+interface InitInfo { gl: WebGLRenderingContext, canvas: HTMLCanvasElement; }
+function initCanvas(): InitInfo {
+  const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+  const { width, height } = document.body.getBoundingClientRect();
+  canvas.width = width;
+  canvas.height = height;
+  const gl = canvas.getContext('webgl');
+  ['resize', 'orientationchange'].forEach((event) => {
+    window.addEventListener(event, () =>
+      resize(gl.canvas as HTMLCanvasElement)
+    );
+  });
+  return { gl, canvas };
+}
 
 function createShader(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type); // 创建着色器对象
@@ -9,7 +23,7 @@ function createShader(gl: WebGLRenderingContext, type: number, source: string) {
   const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS); // 检测编译是否成功
   if (success) return shader;
   const shaderInfo = gl.getShaderInfoLog(shader);
-  console.log('shaderInfo', shaderInfo); // 若编译失败，输出编译错误信息。
+  console.error('shaderInfo', shaderInfo); // 若编译失败，输出编译错误信息。
   gl.deleteShader(shader);
 }
 
@@ -24,13 +38,21 @@ function createProgram(
   gl.linkProgram(program);
   const success = gl.getProgramParameter(program, gl.LINK_STATUS);
   if (success) return program;
-  console.log(gl.getProgramInfoLog(program));
+  console.error(gl.getProgramInfoLog(program));
   gl.deleteProgram(program);
 }
 
-function setupProgram(gl: WebGLRenderingContext, vertexShaderSource: string, fragmentShaderSource: string) {
+function setupProgram(
+  gl: WebGLRenderingContext,
+  vertexShaderSource: string,
+  fragmentShaderSource: string
+) {
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  const fragmentShader = createShader(
+    gl,
+    gl.FRAGMENT_SHADER,
+    fragmentShaderSource
+  );
   const program = createProgram(gl, vertexShader, fragmentShader);
   gl.linkProgram(program);
   return program;
@@ -44,9 +66,20 @@ function resize(canvas: HTMLCanvasElement) {
   canvas.height = Math.floor(dpr * rect.height);
 }
 
+function loadImage(url: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = url;
+  });
+}
+
 export {
   createShader,
   createProgram,
   resize,
-  setupProgram
+  setupProgram,
+  initCanvas,
+  loadImage
 };
