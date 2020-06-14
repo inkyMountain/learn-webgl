@@ -1,9 +1,4 @@
 let MatType: Float32ArrayConstructor | ArrayConstructor = Float32Array;
-type FixedLengthNumberArray<T, L> = [T, ...T[]] & { length: L };
-export type Matrix4 = FixedLengthNumberArray<number, 16>;
-export type Vector3 = FixedLengthNumberArray<number, 3>;
-export type Vector4 = FixedLengthNumberArray<number, 4>;
-
 function setDefaultType(Ctor: Float32ArrayConstructor | ArrayConstructor) {
   const OldType = MatType;
   MatType = Ctor;

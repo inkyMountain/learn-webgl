@@ -1,14 +1,3 @@
-export type Matrix3 = [
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number
-];
 
 function multiply(a: Matrix3, b: Matrix3): Matrix3 {
   const a00 = a[0 * 3 + 0];

@@ -75,6 +75,11 @@ function loadImage(url: string): Promise<HTMLImageElement> {
   });
 }
 
+function clear(gl: WebGLRenderingContext, color: RgbaColor) {
+  gl.clearColor(...color);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+}
+
 export {
   createShader,
   createProgram,
