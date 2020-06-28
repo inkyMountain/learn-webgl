@@ -101,7 +101,7 @@ function subtractVectors(a: Vector3, b: Vector3, dst?: Vector3): Vector3 {
   return dst;
 }
 
-function scaleVector(v: Vector3, s: number, dst: Vector3): Vector3 {
+function scaleVector(v: Vector3, s: number, dst?: Vector3): Vector3 {
   dst = dst || (new MatType(3) as Vector3);
   dst[0] = v[0] * s;
   dst[1] = v[1] * s;
@@ -154,7 +154,7 @@ function distance(a: Vector3, b: Vector3): number {
 }
 
 // 标准矩阵
-function identity(dst: Matrix4): Matrix4 {
+function identity(dst?: Matrix4): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
   dst[0] = 1;
@@ -178,7 +178,7 @@ function identity(dst: Matrix4): Matrix4 {
 }
 
 // 转置一个矩阵
-function transpose(m: Matrix4, dst: Matrix4): Matrix4 {
+function transpose(m: Matrix4, dst?: Matrix4): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
   dst[0] = m[0];
@@ -217,7 +217,7 @@ function lookAt(
   cameraPosition: Vector3,
   target: Vector3,
   up: Vector3,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
   const zAxis = normalize(subtractVectors(cameraPosition, target));
@@ -268,7 +268,7 @@ function perspective(
   aspect: number,
   near: number,
   far: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
   const f = Math.tan(Math.PI * 0.5 - 0.5 * fieldOfViewInRadians);
@@ -319,7 +319,7 @@ function orthographic(
   top: number,
   near: number,
   far: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
@@ -369,7 +369,7 @@ function frustum(
   top: number,
   near: number,
   far: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
@@ -410,7 +410,7 @@ function translation(
   tx: number,
   ty: number,
   tz: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
@@ -449,7 +449,7 @@ function translate(
   tx: number,
   ty: number,
   tz: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   // This is the optimized version of
   // return multiply(m, translation(tx, ty, tz), dst);
@@ -502,7 +502,7 @@ function translate(
  * @return {Matrix4} dst or a new matrix if none provided
  * @memberOf module:webgl-3d-math
  */
-function xRotation(angleInRadians: number, dst: Matrix4): Matrix4 {
+function xRotation(angleInRadians: number, dst?: Matrix4): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
   const c = Math.cos(angleInRadians);
   const s = Math.sin(angleInRadians);
@@ -535,7 +535,7 @@ function xRotation(angleInRadians: number, dst: Matrix4): Matrix4 {
  * @return {Matrix4} dst or a new matrix if none provided
  * @memberOf module:webgl-3d-math
  */
-function xRotate(m: Matrix4, angleInRadians: number, dst: Matrix4): Matrix4 {
+function xRotate(m: Matrix4, angleInRadians: number, dst?: Matrix4): Matrix4 {
   // this is the optimized version of
   // return multiply(m, xRotation(angleInRadians), dst);
   dst = dst || (new MatType(16) as Matrix4);
@@ -581,7 +581,7 @@ function xRotate(m: Matrix4, angleInRadians: number, dst: Matrix4): Matrix4 {
  * @return {Matrix4} dst or a new matrix if none provided
  * @memberOf module:webgl-3d-math
  */
-function yRotation(angleInRadians: number, dst: Matrix4): Matrix4 {
+function yRotation(angleInRadians: number, dst?: Matrix4): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
   const c = Math.cos(angleInRadians);
   const s = Math.sin(angleInRadians);
@@ -614,7 +614,7 @@ function yRotation(angleInRadians: number, dst: Matrix4): Matrix4 {
  * @return {Matrix4} dst or a new matrix if none provided
  * @memberOf module:webgl-3d-math
  */
-function yRotate(m: Matrix4, angleInRadians: number, dst: Matrix4): Matrix4 {
+function yRotate(m: Matrix4, angleInRadians: number, dst?: Matrix4): Matrix4 {
   // this is the optimized version of
   // return multiply(m, yRotation(angleInRadians), dst);
   dst = dst || (new MatType(16) as Matrix4);
@@ -660,7 +660,7 @@ function yRotate(m: Matrix4, angleInRadians: number, dst: Matrix4): Matrix4 {
  * @return {Matrix4} dst or a new matrix if none provided
  * @memberOf module:webgl-3d-math
  */
-function zRotation(angleInRadians: number, dst: Matrix4): Matrix4 {
+function zRotation(angleInRadians: number, dst?: Matrix4): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
   const c = Math.cos(angleInRadians);
   const s = Math.sin(angleInRadians);
@@ -693,7 +693,7 @@ function zRotation(angleInRadians: number, dst: Matrix4): Matrix4 {
  * @return {Matrix4} dst or a new matrix if none provided
  * @memberOf module:webgl-3d-math
  */
-function zRotate(m: Matrix4, angleInRadians: number, dst: Matrix4): Matrix4 {
+function zRotate(m: Matrix4, angleInRadians: number, dst?: Matrix4): Matrix4 {
   // This is the optimized version of
   // return multiply(m, zRotation(angleInRadians), dst);
   dst = dst || (new MatType(16) as Matrix4);
@@ -743,7 +743,7 @@ function zRotate(m: Matrix4, angleInRadians: number, dst: Matrix4): Matrix4 {
 function axisRotation(
   axis: Vector3,
   angleInRadians: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
@@ -794,7 +794,7 @@ function axisRotate(
   m: Matrix4,
   axis: Vector3,
   angleInRadians: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   // This is the optimized version of
   // return multiply(m, axisRotation(axis, angleInRadians), dst);
@@ -869,7 +869,7 @@ function axisRotate(
  * @return {Matrix4} dst or a new matrix if none provided
  * @memberOf module:webgl-3d-math
  */
-function scaling(sx: number, sy: number, sz: number, dst: Matrix4): Matrix4 {
+function scaling(sx: number, sy: number, sz: number, dst?: Matrix4): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
   dst[0] = sx;
@@ -907,7 +907,7 @@ function scale(
   sx: number,
   sy: number,
   sz: number,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   // This is the optimized version of
   // return multiply(m, scaling(sx, sy, sz), dst);
@@ -948,7 +948,7 @@ function compose(
   translation: Array<number>,
   quaternion: Array<number>,
   scale: Array<number>,
-  dst: Matrix4
+  dst?: Matrix4
 ): Matrix4 {
   dst = dst || (new MatType(16) as Matrix4);
 
@@ -1300,7 +1300,7 @@ function inverse(m: Matrix4, dst?: Matrix4): Matrix4 {
  * @return {Vector4} dst or new Vector4 if not provided
  * @memberOf module:webgl-3d-math
  */
-function transformVector(m: Matrix4, v: Vector4, dst: Vector4): Vector4 {
+function transformVector(m: Matrix4, v: Vector4, dst?: Vector4): Vector4 {
   dst = dst || new MatType(4) as Vector4;
   for (let i = 0; i < 4; ++i) {
     dst[i] = 0.0;
@@ -1321,7 +1321,7 @@ function transformVector(m: Matrix4, v: Vector4, dst: Vector4): Vector4 {
  * @return {Vector4} dst or new Vector4 if not provided
  * @memberOf module:webgl-3d-math
  */
-function transformPoint(m: Matrix4, v: Vector3, dst: Vector3): Vector3 {
+function transformPoint(m: Matrix4, v: Vector3, dst?: Vector3): Vector3 {
   dst = dst || new MatType(3) as Vector3;
   const v0 = v[0];
   const v1 = v[1];
@@ -1355,7 +1355,7 @@ function transformPoint(m: Matrix4, v: Vector3, dst: Vector3): Vector3 {
  * @return {Vector4} dst or new Vector4 if not provided
  * @memberOf module:webgl-3d-math
  */
-function transformDirection(m: Matrix4, v: Vector3, dst: Vector3) {
+function transformDirection(m: Matrix4, v: Vector3, dst?: Vector3) {
   dst = dst || new MatType(3) as Vector3;
 
   const v0 = v[0];
@@ -1384,7 +1384,7 @@ function transformDirection(m: Matrix4, v: Vector3, dst: Vector3) {
  * @return {Vector3} The transformed direction.
  * @memberOf module:webgl-3d-math
  */
-function transformNormal(m: Matrix4, v: Vector3, dst: Vector3) {
+function transformNormal(m: Matrix4, v: Vector3, dst?: Vector3) {
   dst = dst || new MatType(3) as Vector3;
   const mi = inverse(m);
   const v0 = v[0];

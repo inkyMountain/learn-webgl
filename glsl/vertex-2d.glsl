@@ -3,7 +3,6 @@ vec2 position_projection;
 uniform mat3 u_Matrix3;
 varying vec2 v_texCoord;
 attribute vec2 a_texCoord;
-// #pragma glslify: yyy = require(./my-function.glsl)
 
 void main() {
   v_texCoord = a_texCoord;
