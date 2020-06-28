@@ -8,6 +8,11 @@ declare module '*.jpg' {
   export default value;
 }
 
+declare module '*.glsl' {
+  const value: string;
+  export default value;
+}
+
 type FixedLengthArray<L> = Array<number> & { length: L; };
 
 type FixedLengthNumberArray<T, L> = [T, ...T[]] & { length: L; };
